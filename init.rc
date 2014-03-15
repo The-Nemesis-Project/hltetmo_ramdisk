@@ -1199,3 +1199,12 @@ service createsystemfile /system/bin/createsystemfile
 
 on property:sys.boot_completed=1
     write /sys/block/mmcblk0/queue/scheduler cfq
+
+service bio-post-boot /sbin/bio-post-boot.sh
+     class late_start
+     user root
+     disabled
+     oneshot
+ 
+on property:sys.boot_completed=1
+     start bio-post-boot
